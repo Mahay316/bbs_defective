@@ -23,12 +23,19 @@ def flatten_single(result):
     res = []
     for u in result:
         tmp = {
-            'create_time': u.create_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'update_time': u.update_time.strftime('%Y-%m-%d %H:%M:%S'),
+            'create_time': u[7].strftime('%Y-%m-%d %H:%M:%S'),
+            'update_time': u[8].strftime('%Y-%m-%d %H:%M:%S'),
+            'user_id': u[0],
+            'username': u[1],
+            'nickname': u[2],
+            'password': u[3],
+            'avatar': u[4],
+            'email': u[5],
+            'role': u[6]
         }
-        for k, v in u.__dict__.items():
-            if not (k.startswith('_sa_instance_state') or k in tmp):
-                tmp[k] = v
+        # for k, v in u.__dict__.items():
+        #     if not (k.startswith('_sa_instance_state') or k in tmp):
+        #         tmp[k] = v
         res.append(tmp)
     return res
 

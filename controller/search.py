@@ -21,10 +21,13 @@ def do_search(page):
     count = 0
     if action == 'message':
         # fuzzy search messages
+        # res = flatten_double(Message.defective_fuzzy_search('%' + keyword + '%', page * 10, 10))
         res = flatten_double(Message.fuzzy_search('%' + keyword + '%', page * 10, 10))
         count = (Message.count_fuzzy_result('%' + keyword + '%') - 1) // 10 + 1
     elif action == 'user':
         # fuzzy search users
-        res = flatten_single(User.fuzzy_search('%' + keyword + '%', page * 10, 10))
+        # TODO finished SQL injection
+        res = flatten_single(User.defective_fuzzy_search('%' + keyword + '%', page * 10, 10))
+        # res = flatten_single(User.fuzzy_search('%' + keyword + '%', page * 10, 10))
         count = (User.count_fuzzy_result('%' + keyword + '%') - 1) // 10 + 1
     return jsonify([count, res])

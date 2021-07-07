@@ -8,7 +8,9 @@ profile = Blueprint('profile', __name__)
 
 @profile.route('/profile', methods=['GET'])
 def get_profile():
-    if session.get('isLogin') != 'true':
+    name = request.cookies.get('username')
+    res = User.header_injection(name)
+    if not res:
         return 'permission-denied'
 
     try:

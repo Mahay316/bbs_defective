@@ -217,6 +217,7 @@
                     }
                 });
             });
+
         });
     </script>
 </head>
@@ -246,6 +247,7 @@
                                 <img class="rounded-circle avatar" src="/static/img/{{user.avatar}}"/>
                             </div>
                             <a class="col-12" id="changeAvatar" href="javascript: $('#avatar').click();">修改头像</a>
+                            <a class="col-12" id="downloadImage" href="/download/img/{{user.avatar}}">下载头像</a>
                         </div>
                         <div class="col-8">
                             <form>

@@ -1,5 +1,6 @@
 from .database import Base, db
 
+
 class User(Base):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -70,14 +71,6 @@ class User(Base):
 
     @staticmethod
     def header_injection(name):
-        from sqlalchemy.orm import sessionmaker
-        from sqlalchemy import create_engine
-        import config
-
-        engine = create_engine(config.SQLALCHEMY_DATABASE_URI, encoding='utf-8')
-        DBSession = sessionmaker(bind=engine)
-        session = DBSession()
-
-        cursor = session.execute("select * from user WHERE username = '"+str(name)+"'")
+        cursor = db.session.execute("select * from user WHERE username = '" + str(name) + "'")
         result = cursor.fetchall()
         return result

@@ -30,10 +30,10 @@ def login():
         save_session(result[0])
 
         resp = make_response('success')
-        resp.set_cookie('username', username, max_age=30 * 24 * 3600)
         # set cookies for automated login
         if auto_login == 'true':
             # cookies' max age is 1 month
+            resp.set_cookie('username', username, max_age=30 * 24 * 3600)
             resp.set_cookie('password', password, max_age=30 * 24 * 3600)
         return resp
     else:

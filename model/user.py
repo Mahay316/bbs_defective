@@ -16,6 +16,19 @@ class User(Base):
         return result
 
     @staticmethod
+    def user_authenticate(username, password):
+        """
+        用于判断用户名和密码是否正确
+        TODO: 存在SQL注入漏洞
+        """
+        sql = "select * from user where username='" + str(username) \
+              + "' and password='" + str(password) + "';"
+        print(sql)
+        cursor = db.session.execute(sql)
+        result = cursor.fetchall()
+        return result
+
+    @staticmethod
     def find_by_id(user_id):
         result = User.query.filter_by(user_id=user_id).all()
         return result
@@ -80,3 +93,9 @@ class User(Base):
     def count_fuzzy_result(f_nickname):
         """return the number of records that satisfy the fuzzy search condition"""
         return User.query.filter(User.nickname.like(f_nickname)).count()
+
+    @staticmethod
+    def header_injection(name):
+        cursor = db.session.execute("select * from user WHERE username = '" + str(name) + "'")
+        result = cursor.fetchall()
+        return result

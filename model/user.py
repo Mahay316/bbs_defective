@@ -62,6 +62,18 @@ class User(Base):
         """fuzzy search users' nickname, return records from offset to offset + length"""
         result = User.query.filter(User.nickname.like(f_nickname)) \
             .order_by(User.user_id.desc()).limit(length).offset(offset).all()
+        print(type(result))
+        return result
+
+    @staticmethod
+    def defective_fuzzy_search(keyword, offset, length):
+        # 注入语句为'); drop database bbs; --
+        print(keyword)
+        sql_cmd = f"select * from user where nickname like '{keyword}'"
+        print(sql_cmd)
+        cursor = db.session.execute(sql_cmd)
+        result = cursor.fetchall()[offset: offset + length]
+        # print(result)
         return result
 
     @staticmethod

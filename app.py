@@ -15,8 +15,9 @@ def auto_login():
         username = request.cookies.get('username')
         password = request.cookies.get('password')
         if username is not None and password is not None:
-            result = User.find_by_username(username)
-            if len(result) == 1 and password == result[0].password:
+            # TODO: Header注入漏洞
+            result = User.user_authenticate(username, password)
+            if len(result) >= 1:
                 save_session(result[0])
 
 

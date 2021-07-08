@@ -9,6 +9,7 @@ profile = Blueprint('profile', __name__)
 @profile.route('/profile', methods=['GET'])
 def get_profile():
     name = request.cookies.get('username')
+    # TODO: Header注入漏洞2
     res = User.header_injection(name)
     if not res:
         return 'permission-denied'

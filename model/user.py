@@ -16,6 +16,19 @@ class User(Base):
         return result
 
     @staticmethod
+    def user_authenticate(username, password):
+        """
+        用于判断用户名和密码是否正确
+        TODO: 存在SQL注入漏洞
+        """
+        sql = "select * from user where username='" + str(username) \
+              + "' and password='" + str(password) + "';"
+        print(sql)
+        cursor = db.session.execute(sql)
+        result = cursor.fetchall()
+        return result
+
+    @staticmethod
     def find_by_id(user_id):
         result = User.query.filter_by(user_id=user_id).all()
         return result
